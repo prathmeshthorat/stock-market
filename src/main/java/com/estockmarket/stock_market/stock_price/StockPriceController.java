@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/stockPrices", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/stock", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StockPriceController {
 
     private final StockPriceService stockPriceService;
@@ -35,23 +35,25 @@ public class StockPriceController {
         return ResponseEntity.ok(stockPriceService.get(id));
     }
 
-    @PostMapping
+    @PostMapping("/add/{id}")
     public ResponseEntity<Long> createStockPrice(
             @RequestBody @Valid final StockPriceDTO stockPriceDTO) {
         return new ResponseEntity<>(stockPriceService.create(stockPriceDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateStockPrice(@PathVariable final Long id,
-            @RequestBody @Valid final StockPriceDTO stockPriceDTO) {
-        stockPriceService.update(id, stockPriceDTO);
-        return ResponseEntity.ok().build();
-    }
+	/*
+	 * @PutMapping("/{id}") public ResponseEntity<Void>
+	 * updateStockPrice(@PathVariable final Long id,
+	 * 
+	 * @RequestBody @Valid final StockPriceDTO stockPriceDTO) {
+	 * stockPriceService.update(id, stockPriceDTO); return
+	 * ResponseEntity.ok().build(); }
+	 */
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStockPrice(@PathVariable final Long id) {
-        stockPriceService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+	/*
+	 * @DeleteMapping("/{id}") public ResponseEntity<Void>
+	 * deleteStockPrice(@PathVariable final Long id) { stockPriceService.delete(id);
+	 * return ResponseEntity.noContent().build(); }
+	 */
 
 }

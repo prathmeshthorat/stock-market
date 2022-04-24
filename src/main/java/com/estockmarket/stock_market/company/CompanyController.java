@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/companys", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/company", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CompanyController {
 
     private final CompanyService companyService;
@@ -25,29 +25,30 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping
+    @GetMapping("/getall")
     public ResponseEntity<List<CompanyDTO>> getAllCompanys() {
         return ResponseEntity.ok(companyService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/info/{id}")
     public ResponseEntity<CompanyDTO> getCompany(@PathVariable final Long id) {
         return ResponseEntity.ok(companyService.get(id));
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Long> createCompany(@RequestBody @Valid final CompanyDTO companyDTO) {
         return new ResponseEntity<>(companyService.create(companyDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCompany(@PathVariable final Long id,
-            @RequestBody @Valid final CompanyDTO companyDTO) {
-        companyService.update(id, companyDTO);
-        return ResponseEntity.ok().build();
-    }
+	/*
+	 * @PutMapping("/{id}") public ResponseEntity<Void> updateCompany(@PathVariable
+	 * final Long id,
+	 * 
+	 * @RequestBody @Valid final CompanyDTO companyDTO) { companyService.update(id,
+	 * companyDTO); return ResponseEntity.ok().build(); }
+	 */
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable final Long id) {
         companyService.delete(id);
         return ResponseEntity.noContent().build();
